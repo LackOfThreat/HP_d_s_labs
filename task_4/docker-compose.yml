@@ -1,0 +1,55 @@
+version: '4'
+
+services:
+  flask-server-1:
+    container_name: flask-server-1
+    build:
+      context: ./flask-server
+    volumes:
+      - ./flask-server:/usr/src
+  flask-server-2:
+    container_name: flask-server-2
+    build:
+      context: ./flask-server
+    volumes:
+      - ./flask-server:/usr/src
+  flask-server-3:
+    container_name: flask-server-3
+    build:
+      context: ./flask-server
+    volumes:
+      - ./flask-server:/usr/src
+    
+  json-server-1:
+    container_name: json-server-1
+    build:
+      context: ./json-server
+    volumes:
+      - ./json-server:/usr/src
+  json-server-2:
+    container_name: json-server-2
+    build:
+      context: ./json-server
+    volumes:
+      - ./json-server:/usr/src
+  json-server-3:
+    container_name: json-server-3
+    build:
+      context: ./json-server
+    volumes:
+      - ./json-server:/usr/src
+    
+  nginx:
+    container_name: nginx
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - flask-server-1
+      - flask-server-2
+      - flask-server-3
+      - json-server-1
+      - json-server-2
+      - json-server-3

@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  server:
+    build: .
+    restart: always
+    ports:
+      - 8060:8060
+    environment:
+      - TZ=Europe/Kyiv
+
+

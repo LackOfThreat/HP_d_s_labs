@@ -1,0 +1,25 @@
+version: "2"
+
+volumes:
+  mongodb_volume:
+
+services:
+  server:
+    build: .
+    # command: ['python', 'server.py']
+    restart: always
+    ports:
+      - 8060:8060
+    environment:
+      - TZ=Europe/Kyiv
+      - MONGO_DB_PORT=27017
+      - MONGO_DB_ADDR=mongodb
+      - STORAGE_SERVICE_IMPL=MongodbService
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_volume:/data/db
+    restart: always
